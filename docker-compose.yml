@@ -1,0 +1,16 @@
+services:
+  workqueue:
+    build: .
+    ports:
+      - "8200:8200"
+    volumes:
+      - wq-data:/data
+      - ${MZA_DATA_DIR:-/volume3/py/mza-sync/mza_data}:/mza_data
+    environment:
+      - WQ_DATA_DIR=/data
+      - WQ_UPLOAD_DIR=/mza_data
+      - WQ_CONFIG=/app/workqueue/config.yaml
+    restart: unless-stopped
+
+volumes:
+  wq-data:

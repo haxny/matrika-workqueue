@@ -1,0 +1,15 @@
+# Workqueue coordinator config
+data_dir: /data
+upload_dir: /mza_data
+admin_api_key: changeme
+extension_api_key: changeme
+
+workers:
+  - worker_id: mac-yourname
+    api_key: changeme
+    capabilities: mza,http
+
+rate_limits:
+  - domain: www.mza.cz
+    max_requests_per_hour: 120
+    max_concurrent: 2

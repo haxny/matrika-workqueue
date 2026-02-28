@@ -1,0 +1,9 @@
+__pycache__/
+*.pyc
+*.pyo
+wq_data/
+wq_work/
+*.db
+config.yaml
+worker-config.yaml
+mza-helper-extension.zip

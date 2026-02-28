@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    width: 320px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 13px;
+    color: #333;
+    padding: 12px;
+  }
+  h1 {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  h1 img { width: 20px; height: 20px; }
+
+  .toggle-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 8px;
+  }
+
+  .switch {
+    position: relative;
+    width: 44px;
+    height: 24px;
+  }
+  .switch input { opacity: 0; width: 0; height: 0; }
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    inset: 0;
+    background: #ccc;
+    border-radius: 24px;
+    transition: 0.3s;
+  }
+  .slider::before {
+    content: "";
+    position: absolute;
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background: white;
+    border-radius: 50%;
+    transition: 0.3s;
+  }
+  input:checked + .slider { background: #4CAF50; }
+  input:checked + .slider::before { transform: translateX(20px); }
+
+  .status {
+    padding: 6px 0;
+    font-size: 12px;
+    color: #666;
+  }
+  .status.working { color: #4CAF50; font-weight: 500; }
+  .status.error { color: #F44336; }
+
+  .stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+    margin: 8px 0;
+  }
+  .stat {
+    background: #f5f5f5;
+    border-radius: 6px;
+    padding: 8px;
+    text-align: center;
+  }
+  .stat .value {
+    font-size: 18px;
+    font-weight: 700;
+    color: #333;
+  }
+  .stat .label {
+    font-size: 11px;
+    color: #888;
+    margin-top: 2px;
+  }
+
+  .api-key-section {
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid #eee;
+  }
+  .api-key-section label {
+    font-size: 11px;
+    color: #888;
+    display: block;
+    margin-bottom: 3px;
+  }
+  .api-key-row {
+    display: flex;
+    gap: 4px;
+  }
+  .api-key-row input {
+    flex: 1;
+    font-size: 12px;
+    padding: 4px 6px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-family: monospace;
+  }
+  .api-key-row button {
+    font-size: 11px;
+    padding: 4px 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: #f5f5f5;
+    cursor: pointer;
+  }
+  .api-key-row button:hover { background: #e8e8e8; }
+
+  .worker-id {
+    margin-top: 8px;
+    font-size: 11px;
+    color: #aaa;
+    text-align: center;
+  }
+
+  .actions {
+    margin-top: 8px;
+    text-align: center;
+  }
+  .actions button {
+    font-size: 11px;
+    padding: 4px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: #f5f5f5;
+    cursor: pointer;
+  }
+  .actions button:hover { background: #e8e8e8; }
+</style>
+</head>
+<body>
+  <h1><img src="icons/icon48.png" alt=""> Matriky MZA Helper</h1>
+
+  <div class="toggle-row">
+    <span id="toggle-label">Vypnuto</span>
+    <label class="switch">
+      <input type="checkbox" id="toggle">
+      <span class="slider"></span>
+    </label>
+  </div>
+
+  <div class="status" id="status">Načítání...</div>
+
+  <div class="stats">
+    <div class="stat">
+      <div class="value" id="pages">0</div>
+      <div class="label">Stažené stránky</div>
+    </div>
+    <div class="stat">
+      <div class="value" id="bytes">0 MB</div>
+      <div class="label">Objem dat</div>
+    </div>
+  </div>
+
+  <div class="actions">
+    <button id="poll-now">Zkontrolovat teď</button>
+  </div>
+
+  <div class="worker-id" id="worker-id"></div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

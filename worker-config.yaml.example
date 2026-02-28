@@ -1,0 +1,14 @@
+# Workqueue worker config
+coordinator_url: https://g.book.cz/wq
+worker_id: mac-yourname
+api_key: changeme
+capabilities:
+  - mza
+  - http
+poll_interval: 5
+# dezoomify_bin: /opt/homebrew/bin/dezoomify-rs  # Auto-detected if on PATH
+work_dir: wq_work
+
+# Anti-blocking: random delay between MZA page downloads (seconds)
+min_delay: 30
+max_delay: 90
