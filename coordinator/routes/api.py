@@ -263,6 +263,18 @@ def cancel_tasks(
     return {"cancelled": count}
 
 
+@router.post("/refill")
+def trigger_refill(
+    request: Request,
+    _: None = Depends(_auth_admin),
+):
+    """Manually trigger auto-refill from mza.db."""
+    from ..autorefill import refill_once
+    db = _get_db(request)
+    result = refill_once(db)
+    return result
+
+
 @router.get("/stats")
 def get_stats(request: Request):
     """JSON stats (public, no auth required)."""

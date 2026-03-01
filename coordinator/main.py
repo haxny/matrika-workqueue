@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import asyncio
 import logging
 import os
 from contextlib import asynccontextmanager
@@ -11,6 +12,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from .config import load_config
 from .db import Database
+from .autorefill import autorefill_loop
 
 logger = logging.getLogger("workqueue")
 
@@ -39,7 +41,13 @@ async def lifespan(app: FastAPI):
     app.state.db = _db
     app.state.config = config
     logger.info("Workqueue coordinator started (db=%s)", config.db_path)
+
+    # Start auto-refill background task
+    refill_task = asyncio.create_task(autorefill_loop(app))
+
     yield
+
+    refill_task.cancel()
     if _db is not None:
         _db.close()
 

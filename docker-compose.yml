@@ -10,6 +10,7 @@ services:
       - WQ_DATA_DIR=/data
       - WQ_UPLOAD_DIR=/mza_data
       - WQ_CONFIG=/app/workqueue/config.yaml
+      - MZA_DB_PATH=/mza_data/mza.db
     restart: unless-stopped
 
 volumes:
